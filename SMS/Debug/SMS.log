@@ -1,0 +1,12 @@
+﻿  function.cpp
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(14): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(44): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(79): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(149): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(222): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(248): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(281): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(272): warning C4101: 'select': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(303): warning C4101: 'error': unreferenced local variable
+d:\dev\c++\studentmanagementsystem\sms\function.cpp(328): warning C4101: 'error': unreferenced local variable
+  SMS.vcxproj -> D:\Dev\C++\StudentManagementSystem\Debug\SMS.exe
