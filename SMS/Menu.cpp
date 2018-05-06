@@ -81,6 +81,7 @@ void showMenuStaff(int n)
 }
 void staffMenu()
 {
+	
 	L1:system("cls");
 	cout << "------------------------Menu-----------------------" << endl;
 	cout << "1. Student\n";
@@ -102,6 +103,7 @@ void lecturerMenu()
 
 void mainMenu()
 {
+	
 	//login
 	if (userCurrent.size() == 0)
 	{

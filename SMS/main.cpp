@@ -4,7 +4,6 @@
 
 int main()
 {
-	
 	mainMenu();
 	system("pause");
 }
