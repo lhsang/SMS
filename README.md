@@ -1,5 +1,5 @@
-#   						 Project Software
-## 						Student Management System
+<center> <h1>Project Software</h1> </center>
+<center> <h2>Student Management System</h2> </center>
 ### Programming language : C/C++ and SQLite
 # All roles:
 						FUNCTION 		
