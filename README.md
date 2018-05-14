@@ -2,16 +2,14 @@
 ## Student Management System
 ### Programming language : C/C++ and SQLite
 # All roles:
-	S |    FUNCTION 		
-	--|-------------------------------------------------------------------------------------------------
+										   FUNCTION 		
   	- [x] 1. Login 		
 	- [x] 2. Show menu
 	- [x] 3. View info 		
 	- [x] 4. Change password 	
 	- [x] 5. Logout/Exit 		
 # Academic staff:
-	S |   						 FUNCTION 								
-	--|--------------------------------------------------------------------------------------------------
+					 						 FUNCTION 								
 	- [x] 6. Import students o- [x]a	class from a csv file 					
 	- [x] 7. Add a new student to	a classes								
 	- [x] 8. Edit	an existing	students 									
@@ -35,14 +33,13 @@
 	- [ ] 26. Search and	view scoreboard o- [x]a course 					
 	- [ ] 27. Export a scoreboard	to a csv file 							
 # Lecturer:
-	S |   						 FUNCTION 								
-	--|------------------------------------------------------------------------------------------------------
+											 FUNCTION 								
+	
 	- [ ] 28. Import scoreboard o- [x]a course (midterm,	final, lab, bonus) 	
 	- [x] 29. Edit grade o- [x]a	student 									
 	- [x] 30. View a scoreboard 											
 # Student:
-	S |   						 FUNCTION 								
-	- [ ] ----------------------------------------------------------------
+	 						 			FUNCTION 								
 	- [x] 31. Check-in.32.View check-in result 							
 	- [x] 33. View his/her scores o- [x]a course 							
 	- [ ] 34. View schedules 												
