@@ -1,5 +1,5 @@
-# Project Software
-## Student Management System
+#   						 Project Software
+## 						Student Management System
 ### Programming language : C/C++ and SQLite
 # All roles:
 						FUNCTION 		
