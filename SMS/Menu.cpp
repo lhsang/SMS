@@ -1,7 +1,26 @@
 #include"Menu.h"
 void studentMenu()
 {
+	LL:system("cls");
+	char selection;
 
+	cout << "1.Check in\n";
+	cout << "2.View check in result\n";
+	cout << "3.View your score of a course\n";
+	cout << "4.View schedules\n";
+	cout << "Your selection : "; cin >> selection;
+	cin.ignore();
+	switch (selection)
+	{
+	case '1': checkIn(); break;
+	case '2': viewCheckInResult(); break;
+	case '3': viewScoreOfACourse(); break;
+	case '4': viewSchedules(); break;
+	default: goto LL; break;
+	}
+	cout << endl << endl;
+	cout << "---------------------------------\n";
+	mainMenu();
 }
 void showMenuStaff(int n)
 {
@@ -52,7 +71,7 @@ void showMenuStaff(int n)
 		default: {system("cls"); goto L3;  }
 		}
 	}
-	else if (n == '3')
+	else if (n == '3')		//schedules
 	{
 		cout << "1. Import courses's schuedules from a csv file\n";
 		cout << "2. Add a course's schedules\n";
@@ -63,14 +82,14 @@ void showMenuStaff(int n)
 		cout << "Your selection : ";
 		cin >> select;
 	}
-	else if (n == '4') {
+	else if (n == '4') {		//   attendence
 		cout << "1. Search and view attendence list of a course\n";
 		cout << "2. Export attendence list to a csv file \n";
 		int select;
 		cout << "Your selection : ";
 		cin >> select;
 	}
-	else if (n == '5') {
+	else if (n == '5') {		// score
 		cout << "1. Search and view scoreboard of a course\n";
 		cout << "2. Export a scoreboard to a csv file \n";
 		int select;
@@ -98,7 +117,23 @@ void staffMenu()
 
 void lecturerMenu()
 {
-
+	LL1:system("cls");
+	char selection;
+	cout << "1.Import score board of a course\n";
+	cout << "2.Edit grade of a student\n";
+	cout << "3.View a scoreboard\n";
+	cout << "Your selection : ";
+	cin >> selection;
+	switch (selection)
+	{
+	case '1': importScoreboardOfACourse(); break;
+	case '2': editGradeOfAStudent(); break;
+	case '3': viewAScoreBoard(); break;
+	default: goto LL1; break;
+	}
+	cout << endl << endl;
+	cout << "---------------------------------\n";
+	mainMenu();
 }
 
 void mainMenu()

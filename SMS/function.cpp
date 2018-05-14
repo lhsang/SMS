@@ -9,6 +9,7 @@ void showMenu()
 }
 void viewInfo()
 {
+	cout << "\n--------------------------View your information-----------------------------\n\n";
 	cout << "Your information : \n";
 	
 	int rc;		char *error;
@@ -35,7 +36,7 @@ void viewInfo()
 }
 void changePassword()
 {
-	
+	cout << "\n----------------------------Change password----------------------------------\n\n";
 	string oldPass, newPass;
 	cout << "Enter old password : "; cin >> oldPass;
 	cout << "Enter new password : "; cin >> newPass;
@@ -99,6 +100,7 @@ bool login()
 //1
 void importStudentsOfAClassFromCSV()
 {
+	cout << "\n-----------------------Import students of class from csv file---------------------------\n\n";
 	system("cls");
 	string fileName;
 	cout << "------------------Your file csv must be formated in the following format :------------------\n";
@@ -146,6 +148,7 @@ void importStudentsOfAClassFromCSV()
 //2+6
 void addANewStudentToClass()	//2
 {
+	cout << "\n----------------------------Add a new student to class----------------------------------\n\n";
 	string sql;
 	User sv;
 	system("cls");
@@ -183,6 +186,7 @@ void addANewStudentToClass()	//2
 //3
 void editAStudent()
 {
+	cout << "\n----------------------------Edit a student----------------------------------\n\n";
 	int select; string student;
 
 	cout << "Which student do you want to edit ? (enter username ) : ";
@@ -257,6 +261,7 @@ void editAStudent()
 //4
 void removeAStudent()
 {
+	cout << "\n----------------------------Remove a student----------------------------------\n\n";
 	cout << "Enter studentID you want to remove : ";
 	string id; cin >> id;
 	string sql_user = "delete from user where username='" + id + "'";
@@ -287,6 +292,7 @@ void removeAStudent()
 //5
 void moveClass()
 {
+	cout << "\n----------------------------Move class----------------------------------\n\n";
 	int select; 
 	string student, newClass;
 
@@ -316,6 +322,7 @@ void moveClass()
 //7
 void viewListOfClasses()
 {
+	cout << "\n----------------------------View list of classes----------------------------------\n\n";
 	string sql = "select class from user where class !='' and class is not null";
 	//-------------------------------------
 	int rc;	char *error;
@@ -338,6 +345,7 @@ void viewListOfClasses()
 //8
 void viewListOfStudentOfAClass()
 {
+	cout << "\n---------------------------View list of student of a class----------------------------------\n\n";
 	string className;
 	cout << "Enter class name which you want to view : "; cin >> className;
 
@@ -365,6 +373,7 @@ void viewListOfStudentOfAClass()
 //----------------------------Course-------------------------------------
 //1
 void importCoursesFromCSV() {
+	cout << "\n----------------------------Import courses from csv file----------------------------------\n\n";
 	cout << formatDate("20/6/2018");
 	system("cls");
 	string fileName;
@@ -410,6 +419,7 @@ void importCoursesFromCSV() {
 
 //2
 void addANewCourse() {
+	cout << "\n----------------------------Add a course----------------------------------\n\n";
 	string sql;
 	Course cour;
 	system("cls");
@@ -449,7 +459,9 @@ void addANewCourse() {
 	sqlite3_close(db);
 	mainMenu();
 }
-void editACourse() {
+void editACourse()
+{
+	cout << "\n----------------------------Edit a course----------------------------------\n\n";
 	int select; string coursecode;
 
 	cout << "Which course do you want to edit ? (enter course code ) : ";
@@ -536,6 +548,7 @@ void editACourse() {
 	mainMenu();
 }
 void removeACourse() {
+	cout << "\n----------------------------Remove a course----------------------------------\n\n";
 	cout << "Enter coursecode you want to remove : ";
 	string id; cin >> id;
 	string sql_user = "delete from course where coursecode ='" + id + "'";
@@ -563,6 +576,8 @@ void removeACourse() {
 	mainMenu();
 }
 void viewListOfCourse() {
+
+	cout << "\n----------------------------View list of courses----------------------------------\n\n";
 	string sql = "select * from course";
 	//-------------------------------------
 	int rc;	char *error;
@@ -583,4 +598,133 @@ void viewListOfCourse() {
 }
 
 
-//---------------------------------------
+//---------------------------------------student--------------------------
+void checkIn()
+{
+	cout << "\n----------------------------Check in----------------------------------\n\n";
+	string code, year;
+	int semester, week;
+	cout << "Welcome to attendence :\n";
+	cout << "Enter your courseCode : "; getline(cin, code);
+	cout << "Enter your school year(ex: 2017-2018) : "; getline(cin, year);
+	cout << "Semester : "; cin >> semester;
+	cout << "Week : "; cin >> week;
+
+	//connect DB
+	int rc;
+	char *error;	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	char *zErrMsg = 0;
+	string data = "----",sql;
+
+	sql = "insert into Presence values('" + code + "','" + year + "'," + to_string(semester) + ",'" + userCurrent + "'," + to_string(week) + ")";
+	rc = sqlite3_exec(db, sql.c_str(), editDB, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+}
+void viewCheckInResult()
+{
+	cout << "\n---------------------------View check in result----------------------------------\n\n";
+	string code;
+	cout << "Enter course code you want to view checkin : "; getline(cin, code);
+
+	int rc;
+	char *error;	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	char *zErrMsg = 0;
+	string data = "----", sql;
+
+	sql = "select * from presence where studentid='" + userCurrent + "'";
+	rc = sqlite3_exec(db, sql.c_str(), output, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+}
+void viewScoreOfACourse()
+{
+	cout << "\n----------------------------View score of a course----------------------------------\n";
+	string code;
+	cout << "Enter course code you want to view scoreboard : "; getline(cin, code);
+
+	int rc;
+	char *error;	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	char *zErrMsg = 0;
+	string data = "----", sql;
+	sql = "select * from score where studentid='"+userCurrent+"'";
+	rc = sqlite3_exec(db, sql.c_str(), output, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+}
+void viewSchedules()
+{
+	cout << "\n----------------------------View schedules----------------------------------\n";
+	cout << "processing";
+}
+
+//----------------------------------------Lecturer---------------------------
+void importScoreboardOfACourse()
+{
+	cout << "\n----------------------------Import scoreboard of a course----------------------------------\n";
+}
+void editGradeOfAStudent()
+{
+	string code, id, temp; int semester; char selection; float newScore;
+	cout << "\n----------------------------Edit grade----------------------------------\n";
+	cin.ignore();
+	cout << "Course code : "; getline(cin, code);
+	cout << "Student ID : "; getline(cin, id);
+	cout << "Semester : "; cin >> semester;
+	LOOP1:cout << "-------Grade---------";
+	cout << "\n1.Midterm score\n2.Labscore\n3.Finalscore\nYour selection: "; cin >> selection;
+	
+	string sql = "update score set ";
+	string t ="  where coursecode = '" + code + "' and studentid = '" + id + "' and semester = " + to_string(semester);
+	switch (selection)
+	{
+	case '1':temp = "midtermscore"; break;
+	case '2': temp = "labscore"; break;
+	case '3':temp = "finalscore"; break;
+	default: goto LOOP1;
+		break;
+	}
+	cout << "Set new " << temp << " = "; cin >> newScore;
+
+	string t1 = temp + " = " + to_string(newScore);
+
+	sql = sql + t1 + t;
+	int rc;	char *error;
+	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	if (rc)
+	{
+		cerr << L"Lỗi mở CSDL: " << sqlite3_errmsg(db) << std::endl << std::endl;
+		sqlite3_close(db);
+		return;
+	}
+	char *zErrMsg = 0;	string data = "----";
+	rc = sqlite3_exec(db, sql.c_str(), editDB, (void*)data.c_str(), &zErrMsg);
+	cout << "Edited !\n";
+	sqlite3_close(db);
+}
+void viewAScoreBoard()
+{
+	string code;
+	cout << "\n----------------------------View a scoreboard----------------------------------\n";
+	cin.ignore();
+	cout << "Enter course code: "; getline(cin, code);
+
+	string sql = "select * from score where coursecode = '"+code+"'";
+	//-------------------------------------
+	int rc;	char *error;
+	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	if (rc)
+	{
+		cerr << L"Lỗi mở CSDL: " << sqlite3_errmsg(db) << std::endl << std::endl;
+		sqlite3_close(db);
+		return;
+	}
+	char *zErrMsg = 0;	string data = "----------------";
+	rc = sqlite3_exec(db, sql.c_str(), output, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+
+	cout << "\n\n--------------------------------------------------------------------------\n\n\n";
+	mainMenu();
+}

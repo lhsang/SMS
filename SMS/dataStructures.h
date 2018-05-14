@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include<algorithm>
 #include"sqlite3.h"
 //#include"SupportFunc.h"
 #define DATABASE "StudentManagementSystem.db"

@@ -24,3 +24,16 @@ void addANewCourse();
 void editACourse();
 void removeACourse();
 void viewListOfCourse();
+
+
+
+//Student function
+void checkIn();
+void viewCheckInResult();
+void viewScoreOfACourse();
+void viewSchedules();
+
+// Lecturer function
+void importScoreboardOfACourse();
+void editGradeOfAStudent();
+void viewAScoreBoard();
