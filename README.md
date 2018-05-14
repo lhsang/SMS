@@ -30,16 +30,16 @@
 - [ ] 23. View list o- [x]schedules. 									
 - [ ] 24. Search and view attendance list	o- [x]a course 				
 - [ ] 25. Export attendance list to a	csv	file 						
-- [ ] 26. Search and	view scoreboard o- [x]a course 					
-- [ ] 27. Export a scoreboard	to a csv file 							
+- [ ] 26. Search and view scoreboard of a course 					
+- [ ] 27. Export a scoreboard to a csv file 							
 # Lecturer:
 						 FUNCTION 								
 	
-- [ ] 28. Import scoreboard o- [x]a course (midterm,	final, lab, bonus) 	
-- [x] 29. Edit grade o- [x]a	student 									
+- [ ] 28. Import scoreboard a course (midterm,	final, lab, bonus) 	
+- [x] 29. Edit grade a student 									
 - [x] 30. View a scoreboard 											
 # Student:
 	 					FUNCTION 								
 - [x] 31. Check-in.32.View check-in result 							
-- [x] 33. View his/her scores o- [x]a course 							
+- [x] 33. View his/her scores a course 							
 - [ ] 34. View schedules 												
