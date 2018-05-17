@@ -25,7 +25,10 @@ void editACourse();
 void removeACourse();
 void viewListOfCourse();
 
-
+void viewAttendanceListOfACourse();
+void exportAttendanceListToCSV();
+void viewScoreBoardOfACourse();
+void  exportScoreBoardToCSV();
 
 //Student function
 void checkIn();

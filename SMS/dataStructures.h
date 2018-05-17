@@ -4,6 +4,7 @@
 #include<fstream>
 #include<algorithm>
 #include"sqlite3.h"
+#include<conio.h>
 //#include"SupportFunc.h"
 #define DATABASE "StudentManagementSystem.db"
 
@@ -58,4 +59,5 @@ struct Score
 	float midtermScore;
 	float labScore;
 	float finalScore;
+	float bonus;
 };

@@ -73,8 +73,12 @@ bool login()
 	string userName, pass;
 	cout << "\n--------------------SIGN IN-----------------------\n";
 	cout << "Enter username : "; cin >> userName;
-	cout << "Enter password : "; cin >> pass;
-	
+	cout << "Enter password : ";
+	char key = _getch();
+	while (key!=13)
+	{
+		pass.push_back(key); cout << "*"; key = _getch();
+	}
 	int rc;
 	char *error;	sqlite3 *db;
 	rc = sqlite3_open(DATABASE, &db);
@@ -96,7 +100,7 @@ bool login()
 
 //Staff's function
 
-//----------------Student-----------------------------------------------
+//---------Student-----------
 //1
 void importStudentsOfAClassFromCSV()
 {
@@ -370,12 +374,11 @@ void viewListOfStudentOfAClass()
 	mainMenu();
 }
 
-//----------------------------Course-------------------------------------
+//----------Course-------------
 //1
 void importCoursesFromCSV() {
-	cout << "\n----------------------------Import courses from csv file----------------------------------\n\n";
-	cout << formatDate("20/6/2018");
 	system("cls");
+	cout << "\n----------------------------Import courses from csv file----------------------------------\n\n";
 	string fileName;
 	cout << "------------------Your file csv must be formated in the following format :------------------\n";
 	cout << "First line is title:     COURSE CODE | YEAR  | SMESTER  | COURSE NAME | LECTURER USERNAME | START DATE | END DATE | START TIME | END TIME | DATE OF WEEK\n";
@@ -597,8 +600,62 @@ void viewListOfCourse() {
 	mainMenu();
 }
 
+//-----------------------schedule----------
 
-//---------------------------------------student--------------------------
+//--------------------attendence---------------------
+void viewAttendanceListOfACourse() {
+	string code;
+	cout << "\n--------------Search and view attendance list of a course---------------------------\n";
+	cout << "Enter course code : "; cin >> code;
+	string sql="select * from presence where coursecode='" + code + "'";
+	//-------------------------------------
+	int rc;	char *error;
+	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	if (rc)
+	{
+		cerr << L"Lỗi mở CSDL: " << sqlite3_errmsg(db) << std::endl << std::endl;
+		sqlite3_close(db);
+		return;
+	}
+	char *zErrMsg = 0;	string data = "----------------";
+	rc = sqlite3_exec(db, sql.c_str(), output, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+	cout << "\n\n--------------------------------------------------------------------------\n\n\n";
+	mainMenu();
+}
+void exportAttendanceListToCSV() {
+
+}
+
+//---------------score--------------------
+void viewScoreBoardOfACourse() {
+	string code;
+	cout << "\n--------------Search and view score board of a course---------------------------\n";
+	cout << "Enter course code : "; cin >> code;
+	string sql = "select * from score where coursecode='" + code + "'";
+	//-------------------------------------
+	int rc;	char *error;
+	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	if (rc)
+	{
+		cerr << L"Lỗi mở CSDL: " << sqlite3_errmsg(db) << std::endl << std::endl;
+		sqlite3_close(db);
+		return;
+	}
+	char *zErrMsg = 0;	string data = "----------------";
+	rc = sqlite3_exec(db, sql.c_str(), output, (void*)data.c_str(), &zErrMsg);
+	sqlite3_close(db);
+
+	cout << "\n\n--------------------------------------------------------------------------\n\n\n";
+	mainMenu();
+}
+void  exportScoreBoardToCSV() {
+
+}
+
+//--------------------//Student's function----------------------
 void checkIn()
 {
 	cout << "\n----------------------------Check in----------------------------------\n\n";
@@ -658,10 +715,50 @@ void viewSchedules()
 	cout << "processing";
 }
 
-//----------------------------------------Lecturer---------------------------
+//------------------Lecturer's function-----------------------
 void importScoreboardOfACourse()
 {
+	system("pause");
 	cout << "\n----------------------------Import scoreboard of a course----------------------------------\n";
+	string fileName;
+	cout << "------------------Your file csv must be formated in the following format :------------------\n";
+	cout << "First line is title:     COURSE CODE | YEAR  | SMESTER  | STUDENT ID | MIDTERM SCORE | FINAL SOCRE | LAB SCORE | BONUS \n";
+	cout << "Enter file name csv : "; cin >> fileName;
+	if (fileName.size()<4 || fileName.substr(fileName.size() - 3, 3).compare("csv") != 0)
+		fileName += ".csv";
+
+	string title;
+	ifstream f(fileName);
+	if (!f)
+	{
+		cout << "Not found this file\n"; f.close();
+		mainMenu();
+	}
+
+	getline(f, title);//no,id,name,email,phone,pass
+	string sql = "";
+
+	//connect DB
+	int rc;
+	char *error;	sqlite3 *db;
+	rc = sqlite3_open(DATABASE, &db);
+	char *zErrMsg = 0;
+	string data = "----";
+
+	//read file
+	while (f.good())
+	{
+		string buff;
+		getline(f, buff);
+		if (buff == "")
+			break;
+		sql = splitDataForScore(buff);
+		rc = sqlite3_exec(db, sql.c_str(), editDB, (void*)data.c_str(), &zErrMsg);
+	}
+	sqlite3_close(db);
+	cout << "Imported !" << endl;
+	f.close();
+	mainMenu();
 }
 void editGradeOfAStudent()
 {

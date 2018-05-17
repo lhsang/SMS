@@ -95,3 +95,9 @@ string formatDate(string date)
 	else ans = t3 + "-" + t2 + "-" + t1;
 	return ans;
 }
+string splitDataForScore(string buff)
+{
+	Score s;
+	string sql = "insert into score values('";
+	return sql;
+}

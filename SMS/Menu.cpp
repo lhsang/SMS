@@ -78,23 +78,35 @@ void showMenuStaff(int n)
 		cout << "3. Edit a course's schedules\n";
 		cout << "4. Remove a course's schedules\n";
 		cout << "5. View list of schedules \n";
-		int select;
+		char select;
 		cout << "Your selection : ";
 		cin >> select;
 	}
 	else if (n == '4') {		//   attendence
-		cout << "1. Search and view attendence list of a course\n";
+		L5:cout << "1. Search and view attendence list of a course\n";
 		cout << "2. Export attendence list to a csv file \n";
-		int select;
+		char select;
 		cout << "Your selection : ";
 		cin >> select;
+		switch (select)
+		{
+		case '1': viewAttendanceListOfACourse(); break;
+		case '2':exportAttendanceListToCSV(); break;
+		default: {system("cls"); goto L5;  }
+		}
 	}
 	else if (n == '5') {		// score
-		cout << "1. Search and view scoreboard of a course\n";
+		L6:cout << "1. Search and view scoreboard of a course\n";
 		cout << "2. Export a scoreboard to a csv file \n";
-		int select;
+		char select;
 		cout << "Your selection : ";
 		cin >> select;
+		switch (select)
+		{
+		case '1': viewScoreBoardOfACourse(); break;
+		case '2':exportScoreBoardToCSV(); break;
+		default: {system("cls"); goto L6;  }
+		}
 	}
 
 }
