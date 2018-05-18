@@ -16,6 +16,7 @@ void addANewStudentToClass();
 void editAStudent();
 void removeAStudent();
 void moveClass();
+void addANewEmptyClass();
 void viewListOfStudentOfAClass();
 void viewListOfClasses();
 
@@ -24,6 +25,12 @@ void addANewCourse();
 void editACourse();
 void removeACourse();
 void viewListOfCourse();
+
+void importCourseScheduleFromCSV();
+void addACourseSchedule();
+void editASchedule();
+void removeSchedule();
+void viewListSchedule();
 
 void viewAttendanceListOfACourse();
 void exportAttendanceListToCSV();

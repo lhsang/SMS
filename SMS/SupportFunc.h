@@ -2,8 +2,7 @@
 #include"dataStructures.h"
  int userType =-1;
 string userCurrent = "";
-
-string formatDate(string date);
+ofstream ex;
 int editDB(void *data, int argc, char **argv, char **azColName)
 {
 	return 0;
@@ -20,9 +19,37 @@ int output(void *data, int argc, char **argv, char **azColName)
 {
 	int i;
 	cout << (const char*)data << "\n";
-	for (i = 0; i<argc ; i++)
+	for (i = 0; i<argc; i++)
 	{
-		if(string(azColName[i]).compare("PASSWORD") == 0)
+		if (string(azColName[i]).compare("PASSWORD") == 0)
+			continue;
+		fprintf(stderr, "%s = %s     ", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+	cout << endl;
+	return 0;
+}
+string formatDate(string date);
+
+int exporting(void *data, int argc, char **argv, char **azColName)
+{
+	int i; string clause = "";
+	cout << (const char*)data << "\n";
+	for (i = 0; i<argc; i++)
+	{
+		clause =clause+ argv[i] + ',';
+	}
+	clause += "\n";
+	ex << clause;
+	cout << endl;
+	return 0;
+}
+int exportDB(void *data, int argc, char **argv, char **azColName)
+{
+	int i;
+	for (i = 0; i<argc; i++)
+	{
+
+		if (string(azColName[i]).compare("PASSWORD") == 0)
 			continue;
 		fprintf(stderr, "%s = %s     ", azColName[i], argv[i] ? argv[i] : "NULL");
 	}
@@ -48,33 +75,49 @@ string splitData(string buff, string className)
 	sql += u.userName + "','" + u.fullName + "','" + u.email + "','" + u.phone + "'," + "0,'" + u.className + "','" + u.password + "')";
 	return sql;
 }
+string split(string &buff) {
+	buff.erase(0, buff.find(',') + 1);
+	string temp;
+	if(buff.find(',') != std::string::npos)
+		temp= buff.substr(0, buff.find(','));
+	else temp = subUntil(buff, 0, ',');
+	return temp;
+}
 string splitDataForCourse(string buff)
 {
 	string sql = "insert into course values('", temp = "";
 	Course c;
-	buff.erase(0, buff.find(',') + 1);
-	c.courseCode = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.courseCode + "','";
-	c.year= buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.year + "',";
-	c.semester = atoi( buff.substr(0, buff.find(',')).c_str()); buff.erase(0, buff.find(',') + 1);
-	temp += to_string(c.semester) + ",'";
-	c.courseName = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.courseName + "','";
-	c.lecturerUserName = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.lecturerUserName + "','";
-	c.startAt = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	
-	temp +=formatDate(c.startAt) + "','"; 
-	c.endAt = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += formatDate(c.endAt) + "','";
-	c.from = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.from + "','";
-	c.to = buff.substr(0, buff.find(',')); buff.erase(0, buff.find(',') + 1);
-	temp += c.to + "','";
-	c.dateOfWeek = subUntil(buff, 0, ',');
-	temp += c.dateOfWeek + "')";
-	sql += temp;
+
+	c.courseCode = split(buff);	c.year = split(buff);c.semester = atoi( split(buff).c_str()); 
+	c.courseName = split(buff);	c.lecturerUserName = split(buff);	c.startAt = formatDate(split(buff));
+	c.endAt =formatDate(split(buff));	c.from = split(buff);	c.to = split(buff);	c.dateOfWeek = split(buff);
+
+	sql = sql + c.courseCode + "','" + c.year + "'," + to_string(c.semester) + ",'" + c.courseName + "','" + c.lecturerUserName + "','"
+		+ c.startAt + "','" + c.endAt + "','" + c.from + "','" + c.to + "','" + c.dateOfWeek + "')";
+	return sql;
+}
+string splitDataForScore(string buff)
+{
+	string sql = "insert into score values('";
+	Score s;
+	s.courseCode = split(buff); s.year = split(buff); s.semester = atoi(split(buff).c_str());
+	s.studentID = split(buff); s.midtermScore = std::stof(split(buff).c_str(), NULL);
+	s.labScore = std::stof(split(buff).c_str(), NULL); 
+	s.finalScore = std::stof(split(buff).c_str(), NULL);;
+	s.bonus= std::stof(split(buff).c_str(), NULL);
+
+	sql = sql + s.courseCode + "','" + s.year + "'," + to_string(s.semester) + ",'" + s.studentID + "'," 
+		+ to_string(s.midtermScore) + "," + to_string(s.labScore) + "," + to_string(s.finalScore) + "," + to_string(s.bonus) + ")";
+	return sql;
+}
+string splitDataForSchedule(string buff)
+{
+	string code, start, end, dateofweek;
+	code = split(buff);
+	start = split(buff);
+	end = split(buff);
+	dateofweek = split(buff);
+	string sql = "update course set startsection=" + start + " , endsection=" + end + " , dateofweek='" + dateofweek + "' where coursecode='" + code + "'";
 	return sql;
 }
 string formatDate(string date)
@@ -94,10 +137,4 @@ string formatDate(string date)
 		ans = t1 + "-" + t2 + "-" + t3;
 	else ans = t3 + "-" + t2 + "-" + t1;
 	return ans;
-}
-string splitDataForScore(string buff)
-{
-	Score s;
-	string sql = "insert into score values('";
-	return sql;
 }

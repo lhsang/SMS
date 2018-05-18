@@ -25,7 +25,7 @@ void studentMenu()
 void showMenuStaff(int n)
 {
 	system("cls");
-	if (n == '1')			//student
+	if (n == '1')			//student and class
 	{
 		L2:cout << "1. Import students of a class from a csv file\n";
 		cout << "2. Add a new student to a class\n";
@@ -45,7 +45,7 @@ void showMenuStaff(int n)
 		case '3': editAStudent(); break;
 		case '4': removeAStudent(); break;
 		case '5': moveClass(); break;
-		case '6': addANewStudentToClass(); break;
+		case '6': addANewEmptyClass(); break;
 		case '7': viewListOfClasses(); break;
 		case '8': viewListOfStudentOfAClass(); break;
 		default: {system("cls"); goto L2;  }
@@ -81,6 +81,15 @@ void showMenuStaff(int n)
 		char select;
 		cout << "Your selection : ";
 		cin >> select;
+		switch (select)
+		{
+		case '1': importCourseScheduleFromCSV(); break;
+		case '2': addACourseSchedule(); break;
+		case '3': editASchedule(); break;
+		case '4': removeSchedule(); break;
+		case '5': viewListSchedule(); break;
+		default: {system("cls"); goto L3;  }
+		}
 	}
 	else if (n == '4') {		//   attendence
 		L5:cout << "1. Search and view attendence list of a course\n";
@@ -108,14 +117,16 @@ void showMenuStaff(int n)
 		default: {system("cls"); goto L6;  }
 		}
 	}
-
+	cout << endl << endl;
+	cout << "---------------------------------\n";
+	mainMenu();
 }
 void staffMenu()
 {
 	
 	L1:system("cls");
 	cout << "------------------------Menu-----------------------" << endl;
-	cout << "1. Student\n";
+	cout << "1. Student and Class\n";
 	cout << "2. Course\n";
 	cout << "3. Schedule\n";
 	cout << "4. Attendance\n";

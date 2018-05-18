@@ -5,7 +5,6 @@
 #include<algorithm>
 #include"sqlite3.h"
 #include<conio.h>
-//#include"SupportFunc.h"
 #define DATABASE "StudentManagementSystem.db"
 
 using namespace std;
@@ -53,7 +52,7 @@ struct Presence
 struct Score
 {
 	string courseCode;
-	int year;
+	std::string year;
 	int semester;
 	string studentID;
 	float midtermScore;
