@@ -1,6 +1,5 @@
-#                      Project Software
-##                 SMS
-### Programming language : C/C++ and SQLite
+#                 SMS
+## C/C++ and SQLite
 # All roles:		
 - [x] 1. Login 		
 - [x] 2. Show menu
