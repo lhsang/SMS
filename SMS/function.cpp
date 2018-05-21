@@ -21,8 +21,6 @@ void queryDB(std::string sql, int t)
 	else     // edit database (not output)
 		rc = sqlite3_exec(db, sql.c_str(),editDB, (void*)data.c_str(), &zErrMsg);
 }
-
-
 void viewInfo()
 {
 	cout << "\n--------------------------View your information-----------------------------\n\n";
@@ -159,7 +157,7 @@ void editAStudent()
 	cout << "Your selection : ";
 	cin >> select;
 	system("cls");
-
+	cin.ignore();
 	string newinfo;
 	switch (select)
 	{
@@ -252,7 +250,7 @@ void addANewEmptyClass()
 	cout << "Enter class name : "; getline(cin, className);
 	cout << "Class ID : "; getline(cin, id);
 	cout << "Start year : "; getline(cin, startyear);
-	cout << "End yaer : "; getline(cin, endyear);
+	cout << "End year : "; getline(cin, endyear);
 
 	sql = "insert into class values('" + id + "','" + className + "'," + startyear + "," + endyear + ")";
 	queryDB(sql, 0);
@@ -271,7 +269,7 @@ void viewListOfStudentOfAClass()
 {
 	cout << "\n---------------------------View list of student of a class----------------------------------\n\n";
 	string className;
-	cout << "Enter class name which you want to view : "; cin >> className;
+	cout << "Enter class ID which you want to view (Ex:17CNTN): "; cin >> className;
 
 	string sql = "select * from user where class='" + className + "'";
 	queryDB(sql, 1);
@@ -339,15 +337,16 @@ void addANewCourse() {
 	cout << "This course start at  (date): "; getline(cin, cour.startAt); cour.startAt = formatDate(cour.startAt);
 	cout << "This course end at (date) : "; getline(cin, cour.endAt); cour.endAt = formatDate(cour.endAt);
 
-	cout << "This course from (time): "; getline(cin, cour.from);
-	cout << "This course to (time) : "; getline(cin, cour.to);
+	cout << "This course from section(1-10): "; getline(cin, cour.from);
+	cout << "This course to section(1-10) : "; getline(cin, cour.to);
 	cout << "Date of week : "; getline(cin, cour.dateOfWeek);
 
 	sql = "insert into course values('" + cour.courseCode + "','" + cour.year + "'," + to_string(cour.semester) + 
-		",'" + cour.courseName + "','" + cour.lecturerUserName + "','" + cour.startAt + "','" + cour.endAt + "','" + cour.from + "','" + cour.to + "','" + cour.dateOfWeek + "')";
+		",'" + cour.courseName + "','" + cour.lecturerUserName + "','" + cour.startAt + "','" + cour.endAt + "'," + cour.from + "," + cour.to + ",'" + cour.dateOfWeek + "')";
 	
 	queryDB(sql, 0);
 }
+//3
 void editACourse()
 {
 	cout << "\n----------------------------Edit a course----------------------------------\n\n";
@@ -367,8 +366,8 @@ void editACourse()
 	cout << "4. Semester\n";
 	cout << "5. Start date :\n";
 	cout << "6. End date : \n";
-	cout << "7. Start time : \n";
-	cout << "8. End time : \n";
+	cout << "7. Start section : \n";
+	cout << "8. End section : \n";
 	cout << "9. Date of week : \n";
 	cout << "Your selection : ";
 	cin >> select;
@@ -403,12 +402,12 @@ void editACourse()
 		sql = sql + "end = '" + newinfo + "' " + t1;
 	}break;
 	case 7: {
-		cout << "New start time : "; cin >> newinfo;
-		sql = sql + "startfrom = '" + newinfo + "' " + t1;
+		cout << "New start section : "; cin >> newinfo;
+		sql = sql + "startsection = " + newinfo +  t1;
 	}break;
 	case 8: {
-		cout << "New end time : "; cin >> newinfo;
-		sql = sql + "startto = '" + newinfo + "' " + t1;
+		cout << "New end section : "; cin >> newinfo;
+		sql = sql + "endsection = " + newinfo +  t1;
 	}break;
 	case 9: {
 		cout << "New date of week : "; cin >> newinfo;
@@ -421,6 +420,7 @@ void editACourse()
 	}
 	queryDB(sql, 0);
 }
+//4
 void removeACourse() {
 	cout << "\n----------------------------Remove a course----------------------------------\n\n";
 	cout << "Enter coursecode you want to remove : ";
@@ -449,14 +449,20 @@ void removeACourse() {
 	cout << "Removed !\n-------------------------------\n";
 	mainMenu();
 }
+//5
 void viewListOfCourse() {
 
 	cout << "\n----------------------------View list of courses----------------------------------\n\n";
-	string sql = "select * from course";
+	string year, semester;
+	cin.ignore();
+	cout << "Year (ex:2017-2018) : "; getline(cin, year);
+	cout << "Semester (ex: 1) : "; getline(cin, semester);
+	string sql = "select * from course where year='"+year+"' and semester ="+semester;
 	queryDB(sql, 1);
 }
 
 //----schedule-----
+//1
 void importCourseScheduleFromCSV()
 {
 	system("cls");
@@ -500,7 +506,7 @@ void importCourseScheduleFromCSV()
 	cout << "Imported !" << endl;
 	f.close();
 }
-
+//2
 void addACourseSchedule()
 {
 	system("cls");
@@ -514,6 +520,7 @@ void addACourseSchedule()
 	sql = "update course set startsection=" + start + " , endsection=" + end + " , dateofweek='" + dateofweek + "' where coursecode='" + code + "'";
 	queryDB(sql, 0);
 }
+//3
 void editASchedule()
 {
 	std::cout << "\n----------------------------Edit a course's shedule ----------------------------------\n\n";
@@ -557,6 +564,7 @@ void editASchedule()
 	queryDB(sql, 0);
 
 }
+//4
 void removeSchedule()
 {
 	std::cout << "\n----------------------------Remove a course's shedule ----------------------------------\n\n";
@@ -567,6 +575,7 @@ void removeSchedule()
 	string sql = "update course set startsection= 1,endsection=1,dateofweek='SUN' where coursecode='" + coursecode + "'";
 	queryDB(sql, 0);
 }
+//5
 void viewListSchedule()
 {
 	cout << "\n----------------------------View list schedules----------------------------------\n";
@@ -579,6 +588,7 @@ void viewListSchedule()
 }
 
 //---attendence----
+//1
 void viewAttendanceListOfACourse() {
 	string code;
 	cout << "\n--------------Search and view attendance list of a course---------------------------\n";
@@ -586,6 +596,7 @@ void viewAttendanceListOfACourse() {
 	string sql="select * from presence where coursecode='" + code + "'";
 	queryDB(sql, 1);
 }
+//2
 void exportAttendanceListToCSV() {
 	string code, year, semester, sql, filename, title;
 	cout << "\n--------------Export attendance to CSV file---------------------------\n";
@@ -602,9 +613,11 @@ void exportAttendanceListToCSV() {
 	ex << title;
 	queryDB(sql, 2);
 	ex.close();
+	cout << endl << "Exported !\n";
 }
 
 //-----score-----
+//1
 void viewScoreBoardOfACourse() {
 	string code;
 	cout << "\n--------------Search and view score board of a course---------------------------\n";
@@ -612,6 +625,7 @@ void viewScoreBoardOfACourse() {
 	string sql = "select * from score where coursecode='" + code + "'";
 	queryDB(sql, 1);
 }
+//2
 void  exportScoreBoardToCSV() {
 	string code,year,semester, sql,filename,title;
 	cout << "\n--------------Export score board to CSV file---------------------------\n";
@@ -632,6 +646,7 @@ void  exportScoreBoardToCSV() {
 
 
 //--------------------//Student's function----------------------
+//1
 void checkIn()
 {
 	cout << "\n----------------------------Check in----------------------------------\n\n";
@@ -644,6 +659,7 @@ void checkIn()
 	string sql= "insert into Presence values('" + code + "','" + year + "'," + to_string(semester) + ",'" + userCurrent + "'," + to_string(week) + ")";
 	queryDB(sql, 0);
 }
+//2
 void viewCheckInResult()
 {
 	cout << "\n---------------------------View check in result----------------------------------\n\n";
@@ -652,6 +668,7 @@ void viewCheckInResult()
 	sql = "select * from presence where studentid='" + userCurrent + "' and coursecode = '"+code+"'";
 	queryDB(sql, 1);
 }
+//3
 void viewScoreOfACourse()
 {
 	cout << "\n----------------------------View score of a course----------------------------------\n";
@@ -660,6 +677,7 @@ void viewScoreOfACourse()
 	sql = "select * from score where studentid='"+userCurrent+"'";
 	queryDB(sql, 1);
 }
+//4
 void viewSchedules()
 {
 	cout << "\n----------------------------View schedules----------------------------------\n";
@@ -674,6 +692,7 @@ void viewSchedules()
 
 
 //------------------Lecturer's function-----------------------
+//1
 void importScoreboardOfACourse()
 {
 	system("cls");
@@ -717,6 +736,7 @@ void importScoreboardOfACourse()
 	cout << "Imported !" << endl;
 	f.close();
 }
+//2
 void editGradeOfAStudent()
 {
 	string code, id, temp; int semester; char selection; float newScore;
@@ -746,6 +766,7 @@ void editGradeOfAStudent()
 	sql = sql + t1 + t;
 	queryDB(sql, 0);
 }
+//3
 void viewAScoreBoard()
 {
 	string code;

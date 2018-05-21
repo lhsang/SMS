@@ -22,7 +22,7 @@ void studentMenu()
 	cout << "---------------------------------\n";
 	mainMenu();
 }
-void showMenuStaff(int n)
+void showMenuStaff(char n)
 {
 	system("cls");
 	if (n == '1')			//student and class
@@ -117,8 +117,7 @@ void showMenuStaff(int n)
 		default: {system("cls"); goto L6;  }
 		}
 	}
-	cout << endl << endl;
-	cout << "---------------------------------\n";
+	cout << "\n\n---------------------------------\n";
 	mainMenu();
 }
 void staffMenu()
@@ -196,4 +195,6 @@ void mainMenu()
 		case '5': exit(0); break;
 		default: goto LOOP; break;
 	}
+	cout << "\n\n-------------------------------------------\n\n";
+	goto LOOP;
 }

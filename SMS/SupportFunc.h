@@ -93,7 +93,7 @@ string splitDataForCourse(string buff)
 	c.endAt =formatDate(split(buff));	c.from = split(buff);	c.to = split(buff);	c.dateOfWeek = split(buff);
 
 	sql = sql + c.courseCode + "','" + c.year + "'," + to_string(c.semester) + ",'" + c.courseName + "','" + c.lecturerUserName + "','"
-		+ c.startAt + "','" + c.endAt + "','" + c.from + "','" + c.to + "','" + c.dateOfWeek + "')";
+		+ c.startAt + "','" + c.endAt + "'," + c.from + "," + c.to + ",'" + c.dateOfWeek + "')";
 	return sql;
 }
 string splitDataForScore(string buff)

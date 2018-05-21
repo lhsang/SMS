@@ -3,17 +3,17 @@ d:\dev\c++\studentmanagementsystem\sms\SupportFunc.h(62): warning C4018: '<': si
 function.cpp(3): warning C4005: 'DATABASE': macro redefinition
   d:\dev\c++\studentmanagementsystem\sms\dataStructures.h(8): note: see previous definition of 'DATABASE'
 function.cpp(9): warning C4101: 'error': unreferenced local variable
-function.cpp(96): warning C4101: 'error': unreferenced local variable
-function.cpp(209): warning C4101: 'error': unreferenced local variable
-function.cpp(234): warning C4101: 'select': unreferenced local variable
-function.cpp(305): warning C4101: 'error': unreferenced local variable
+function.cpp(94): warning C4101: 'error': unreferenced local variable
+function.cpp(207): warning C4101: 'error': unreferenced local variable
+function.cpp(232): warning C4101: 'select': unreferenced local variable
+function.cpp(303): warning C4101: 'error': unreferenced local variable
 function.cpp(432): warning C4101: 'error': unreferenced local variable
-function.cpp(484): warning C4101: 'error': unreferenced local variable
-function.cpp(563): warning C4101: 'select': unreferenced local variable
-function.cpp(701): warning C4101: 'error': unreferenced local variable
+function.cpp(490): warning C4101: 'error': unreferenced local variable
+function.cpp(571): warning C4101: 'select': unreferenced local variable
+function.cpp(720): warning C4101: 'error': unreferenced local variable
   Generating code
-  5 of 2264 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  0 of 2264 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    37 functions had inline decision re-evaluated but remain unchanged
+    50 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SMS.vcxproj -> D:\Dev\C++\StudentManagementSystem\Release\SMS.exe
