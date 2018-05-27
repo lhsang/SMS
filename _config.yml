@@ -1,4 +1,5 @@
 theme: jekyll-theme-architect
-title: Student management
+title: SMS
 description: Student Management System
-show_downloads: https://drive.google.com/open?id=1fefJ0yRhiPyJRlY2Rn0KYlG_eHZ9Tzyp
+show_downloads: true
+url: "http://username.github.io"
