@@ -1,3 +1,8 @@
+<p align="center">
+  <a href="https://www.paypal.me/daattali">
+    <img src="http://www.pngmart.com/files/3/Download-Now-Button-Blue-PNG.png" />
+  </a>
+</p>
 # All roles:		
 - [x] 1. Login 		
 - [x] 2. Show menu
